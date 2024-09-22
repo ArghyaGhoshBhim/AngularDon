@@ -2,11 +2,44 @@ import {
   Component,
   ContentChild,
   ElementRef,
+  InjectionToken,
   Input,
   QueryList,
   ViewChild,
   ViewChildren,
 } from '@angular/core';
+
+const SUB_ITEM = new InjectionToken<string>('sub-item');
+
+@Component({
+  selector: 'app-special-item',
+  standalone: true,
+  providers: [{ provide: SUB_ITEM, useValue: 'special-item' }],
+  template: `<p>Special Item Component</p>`,
+})
+export class SpecialItem {}
+
+@Component({
+  selector: 'app-custom-list',
+  standalone: true,
+  template: `<ng-content></ng-content>
+    <p>Sub Item Type: {{ subItemType }}</p>`,
+})
+export class CustomList {
+  @ContentChild(SUB_ITEM) subItemType!: string; // Using ! to assert it will be defined.
+}
+
+@Component({
+  selector: 'custom-app-root',
+  standalone: true,
+  imports: [CustomList, SpecialItem],
+  template: `
+    <app-custom-list>
+      <app-special-item></app-special-item>
+    </app-custom-list>
+  `,
+})
+export class CustomAppComponent {}
 
 @Component({
   selector: 'custom-card-header',
@@ -86,16 +119,16 @@ export class CustomExpando {
     console.log('ContentChild from CustomExpando', this.toggle);
     // Resul will be undefined
     console.log(
-        'ContentChild element from CustomExpando: ',
-        this.ele?.nativeElement
-      );
+      'ContentChild element from CustomExpando: ',
+      this.ele?.nativeElement
+    );
   }
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     console.log(
-        'ContentChild element from CustomExpando: ',
-        this.ele?.nativeElement
-      );
+      'ContentChild element from CustomExpando: ',
+      this.ele?.nativeElement
+    );
   }
 }
 
@@ -114,12 +147,14 @@ export class UserProfile {}
 
 @Component({
   selector: 'children-with-queries-fun',
-  imports: [CustomCard, UserProfile],
+  imports: [CustomCard, UserProfile, CustomAppComponent],
   standalone: true,
   template: `
     <h1>children.with.queries.fun.ts</h1>
     <custom-card />
     <user-profile />
+    <h2>Queries and the injector tree</h2>
+    <custom-app-root />
   `,
 })
 export class ChildrenWithQueries {}
