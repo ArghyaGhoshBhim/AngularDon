@@ -1,15 +1,21 @@
-import { AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild, afterRender } from "@angular/core";
 
 @Component({
     selector:'profile-photo',
     standalone:true,
     template:`
     <h2>Hi I am content from ProfilePhoto</h2>
-    `
+    <input>
+    `,
+    styles: ['.dynamic-element { color: blue; }']
 })
 export class ProfilePhoto {
   constructor(elementRef: ElementRef) {
     console.log("FunUseDOMApi: Hello, I am from ProfilePhoto under ", elementRef.nativeElement.innerHTML);
+    afterRender(()=>{
+        // elementRef.nativeElement.querySelector('input');
+        elementRef.nativeElement.querySelector('input')?.focus();
+    })
   }
 }
 
