@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, Renderer2 } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild } from "@angular/core";
 
 @Component({
     selector:'profile-photo',
@@ -19,21 +19,20 @@ export class ProfilePhoto {
     standalone:true,
     imports:[ProfilePhoto],
     template:`
-    <h2>Hello, from RenderExampleComponent</h2>
     <div #container></div>
     `,
     styles: ['.dynamic-element { color: red; }']
 })
-export class RenderExampleComponent implements OnInit{
-    constructor(private render:Renderer2, private el: ElementRef){}
-    ngOnInit(): void {
-        const container=this.el.nativeElement.querySelector('#container');
-        const newElemet=this.render.createElement("profile-photo");
+export class RenderExampleComponent implements AfterViewInit{
+    @ViewChild('container') containerRef!: ElementRef;
+    constructor(private render:Renderer2){}
+    ngAfterViewInit(): void {
+        const container=this.containerRef.nativeElement;
+        const newElemet=this.render.createElement('p');
         this.render.addClass(newElemet, 'dynamic-element');
         this.render.setProperty(newElemet, 'textContent', 'This is a dynamic element');
         this.render.appendChild(container, newElemet);
     }
-
 }
 
 @Component({
