@@ -6,6 +6,7 @@ import { FunOutput } from './components.fun/outputs.fun';
 import { CustomCard } from './components.fun/content.projection.fun';
 import { HostFun } from './components.fun/host.element.fun';
 import { ChildrenWithQueries } from './components.fun/children.with.queries.fun';
+import { FunUseDOMApi } from './components.fun/use-dom-apis.component';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,8 @@ import { ChildrenWithQueries } from './components.fun/children.with.queries.fun'
     FunOutput,
     CustomCard,
     HostFun,
-    ChildrenWithQueries
+    ChildrenWithQueries,
+    FunUseDOMApi
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
