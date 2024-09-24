@@ -7,6 +7,7 @@ import { CustomCard } from './components.fun/content.projection.fun';
 import { HostFun } from './components.fun/host.element.fun';
 import { ChildrenWithQueries } from './components.fun/children.with.queries.fun';
 import { FunUseDOMApi } from './components.fun/use-dom-apis.component';
+import { ProgrammaticallyRendering } from './components.fun/programmatically.rendering.components.fun';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,8 @@ import { FunUseDOMApi } from './components.fun/use-dom-apis.component';
     CustomCard,
     HostFun,
     ChildrenWithQueries,
-    FunUseDOMApi
+    FunUseDOMApi,
+    ProgrammaticallyRendering
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
